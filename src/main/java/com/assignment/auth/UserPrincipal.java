@@ -9,6 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * @author shan
+ * <p>
+ * UserPrincipal class for authentication service
+ */
 @Getter
 @Setter
 public class UserPrincipal implements UserDetails {

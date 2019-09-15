@@ -7,6 +7,17 @@ package com.assignment.exceptions;
  */
 public class InvalidCredencialsException extends RuntimeException {
 
+    private InvalidCredentialsResponse invalidCredentialsResponse =
+            new InvalidCredentialsResponse();
+
+    public InvalidCredencialsException(String message) {
+        invalidCredentialsResponse.setError(message);
+    }
+
+    public InvalidCredentialsResponse getResponse() {
+        return invalidCredentialsResponse;
+    }
+
     public static class InvalidCredentialsResponse {
         private String error;
 
@@ -20,16 +31,5 @@ public class InvalidCredencialsException extends RuntimeException {
         public void setError(String error) {
             this.error = error;
         }
-    }
-
-    private InvalidCredentialsResponse invalidCredentialsResponse =
-            new InvalidCredentialsResponse();
-
-    public InvalidCredencialsException(String message) {
-        invalidCredentialsResponse.setError(message);
-    }
-
-    public InvalidCredentialsResponse getResponse() {
-        return invalidCredentialsResponse;
     }
 }

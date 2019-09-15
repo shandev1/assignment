@@ -4,6 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * @author shan
+ * <p>
+ * Login request
+ */
 @Getter
 @Setter
 @ToString

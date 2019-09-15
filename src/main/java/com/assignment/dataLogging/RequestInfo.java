@@ -7,6 +7,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
 
+/**
+ * @author shan
+ * <p>
+ * Request info collection class
+ */
 @NoArgsConstructor
 @Getter
 @Setter

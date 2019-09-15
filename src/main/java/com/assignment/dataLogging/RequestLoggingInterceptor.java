@@ -12,6 +12,12 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author shan
+ * <p>
+ * Sample implementation of request and response logger
+ * Intercepts requests and responses and save to the database
+ */
 @Component
 public class RequestLoggingInterceptor extends HandlerInterceptorAdapter {
 

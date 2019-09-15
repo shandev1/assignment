@@ -2,8 +2,7 @@ package com.assignment.configuration;
 
 import com.assignment.auth.AuthenticateService;
 import com.assignment.auth.AuthenticationFilter;
-import com.assignment.auth.RestAccessDeniedHandler;
-import com.assignment.auth.UnAuthorizeHandler;
+import com.assignment.auth.UnauthorizedErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +18,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * @author shan
+ * <p>
+ * Spring security configuration
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
@@ -62,19 +66,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler())
                 .authenticationEntryPoint(authenticationEntryPoint());
 
         http.addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
-    RestAccessDeniedHandler accessDeniedHandler() {
-        return new RestAccessDeniedHandler();
-    }
-
-    @Bean
-    UnAuthorizeHandler authenticationEntryPoint() {
-        return new UnAuthorizeHandler();
+    UnauthorizedErrorHandler authenticationEntryPoint() {
+        return new UnauthorizedErrorHandler();
     }
 }

@@ -25,16 +25,7 @@ public class UserEntity {
     private String password;
     private String firstName;
     private String lastName;
+    private String countryCode;
     private String phone;
-
-    public User toUser() {
-        User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setPhone(phone);
-        user.setPassword(password);
-        user.setUsername(username);
-        return user;
-    }
 
 }
