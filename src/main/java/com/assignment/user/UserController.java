@@ -1,13 +1,9 @@
 package com.assignment.user;
 
-import com.assignment.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author shan
@@ -19,11 +15,11 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -33,7 +29,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/users")
-    public String login() {
+    public String login(@RequestBody User user) {
         return "token";
     }
 
@@ -45,13 +41,8 @@ public class UserController {
      * @return
      */
     @GetMapping("/users/{userName}")
-    public UserEntity getUser(@PathVariable String userName) {
-        return userRepository.findById(userName)
-                .orElseThrow(() -> new UserNotFoundException("No users found"));
-
-//        User user = new User();
-//        user.setUsername("test user");
-//        return user;
+    public User getUser(@PathVariable String userName) {
+        return userService.getUserByUsername(userName);
     }
 
 }

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 /**
  * @author shan
- *
+ * <p>
  * This is an domain class to represent User
  */
 @NoArgsConstructor
@@ -27,5 +27,9 @@ public class UserEntity {
     private String firstName;
     private String lastName;
     private String phone;
+
+    public User toUser() {
+        return new User();
+    }
 
 }

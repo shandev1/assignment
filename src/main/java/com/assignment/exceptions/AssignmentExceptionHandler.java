@@ -14,19 +14,19 @@ public class AssignmentExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({InvalidUsernameOrPasswordException.class})
     public ResponseEntity<InvalidUsernameOrPasswordResponse> handleInvalidUsernameOrPasswordException(Exception ex, WebRequest request) {
         return new ResponseEntity<>(
-                ((InvalidUsernameOrPasswordException)ex).getResponse(), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+                ((InvalidUsernameOrPasswordException) ex).getResponse(), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler({InvalidTokenException.class})
     public ResponseEntity<InvalidTokenResponse> handleInvalidTokenException(Exception ex, WebRequest request) {
         return new ResponseEntity<>(
-                ((InvalidTokenException)ex).getResponse(), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+                ((InvalidTokenException) ex).getResponse(), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler({UserNotFoundException.class})
     public ResponseEntity<UserNotFoundResponse> handleUserNotFoundException(Exception ex, WebRequest request) {
         return new ResponseEntity<>(
-                ((UserNotFoundException)ex).getResponse(), new HttpHeaders(), HttpStatus.NOT_FOUND);
+                ((UserNotFoundException) ex).getResponse(), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
 }

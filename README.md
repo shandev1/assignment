@@ -1,1 +1,1 @@
-# assignment
+# INSTRUCTIONS TO BUILD AND RUN
