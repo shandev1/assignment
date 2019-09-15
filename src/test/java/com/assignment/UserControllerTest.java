@@ -35,7 +35,7 @@ public class UserControllerTest {
     }
 
     @Test(expected = UserNotFoundException.class)
-    public void shouldReturnNotFoundWhenInvalidUsername() throws Exception {
+    public void shouldReturnNotFoundWhenInvalidUsernameIsGiven() throws Exception {
         when(userRepository.findById("test-user"))
                 .thenThrow(new UserNotFoundException("No users found"));
         mockMvc.perform(get("/users/test-user")
