@@ -3,6 +3,7 @@ package com.assignment.exceptions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -11,14 +12,20 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class AssignmentExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({InvalidUsernameOrPasswordException.class})
-    public ResponseEntity<InvalidUsernameOrPasswordResponse> handleInvalidUsernameOrPasswordException(Exception ex, WebRequest request) {
+    @ExceptionHandler({UsernameNotFoundException.class})
+    public ResponseEntity<InvalidCredencialsException.InvalidCredentialsResponse> handleUsernameNotFoundExceptionException(Exception ex, WebRequest request) {
         return new ResponseEntity<>(
-                ((InvalidUsernameOrPasswordException) ex).getResponse(), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+                ((InvalidCredencialsException) ex).getResponse(), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler({InvalidCredencialsException.class})
+    public ResponseEntity<InvalidCredencialsException.InvalidCredentialsResponse> handleInvalidUsernameOrPasswordException(Exception ex, WebRequest request) {
+        return new ResponseEntity<>(
+                ((InvalidCredencialsException) ex).getResponse(), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler({InvalidTokenException.class})
-    public ResponseEntity<InvalidTokenResponse> handleInvalidTokenException(Exception ex, WebRequest request) {
+    public ResponseEntity<InvalidTokenException.InvalidTokenResponse> handleInvalidTokenException(Exception ex, WebRequest request) {
         return new ResponseEntity<>(
                 ((InvalidTokenException) ex).getResponse(), new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }

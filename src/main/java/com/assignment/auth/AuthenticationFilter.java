@@ -1,6 +1,6 @@
 package com.assignment.auth;
 
-import com.assignment.user.UserService;
+import com.assignment.exceptions.InvalidTokenException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     private AuthTokenHandler authTokenHandler;
 
     @Autowired
-    private UserService userService;
+    private AuthenticateService authenticateService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -34,9 +34,9 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             String jwt = getJwtFromRequest(request);
 
             if (StringUtils.hasText(jwt) && authTokenHandler.validateToken(jwt)) {
-                String userId = authTokenHandler.retrieveUserFromToken(jwt);
 
-                UserDetails userDetails = userService.authenticateUser(userId, "");
+                String username = authTokenHandler.retrieveUserFromToken(jwt);
+                UserDetails userDetails = authenticateService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

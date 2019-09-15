@@ -2,6 +2,7 @@ package com.assignment.configuration;
 
 import com.assignment.auth.AuthenticateService;
 import com.assignment.auth.AuthenticationFilter;
+import com.assignment.auth.RestAccessDeniedHandler;
 import com.assignment.auth.UnAuthorizeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,9 +26,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     AuthenticateService authenticateService;
-
-    @Autowired
-    private UnAuthorizeHandler unauthorizedHandler;
 
     @Bean
     public AuthenticationFilter authenticationFilter() {
@@ -55,17 +53,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+        http.cors().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable()
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
                 .antMatchers("/users").permitAll()
-                .anyRequest().authenticated();
-
-        http.sessionManagement().maximumSessions(1).and().sessionFixation().migrateSession();
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler())
+                .authenticationEntryPoint(authenticationEntryPoint());
 
         http.addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
 
+    @Bean
+    RestAccessDeniedHandler accessDeniedHandler() {
+        return new RestAccessDeniedHandler();
+    }
+
+    @Bean
+    UnAuthorizeHandler authenticationEntryPoint() {
+        return new UnAuthorizeHandler();
     }
 }
