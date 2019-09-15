@@ -10,6 +10,11 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+/**
+ * @author shan
+ * <p>
+ * Token handler used to generate and retrive tokens
+ */
 @Component
 public class AuthTokenHandler {
 
