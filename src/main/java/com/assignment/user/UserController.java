@@ -1,6 +1,8 @@
 package com.assignment.user;
 
 import com.assignment.auth.AuthTokenHandler;
+import com.assignment.dataLogging.RequestInfo;
+import com.assignment.dataLogging.RequestInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -32,9 +35,7 @@ public class UserController {
     AuthTokenHandler tokenProvider;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    RequestInfoService requestInfoService;
 
     /**
      * Authorizes a given user
@@ -44,6 +45,7 @@ public class UserController {
      */
     @PostMapping("/users")
     public ResponseEntity<UserLoginResponse> login(@Valid @RequestBody UserLoginRequest req) {
+
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
