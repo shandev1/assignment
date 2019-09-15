@@ -27,11 +27,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserService userService;
 
-    public AuthenticationFilter(AuthTokenHandler authTokenHandler, UserService userService) {
-        this.authTokenHandler = authTokenHandler;
-        this.userService = userService;
-    }
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {

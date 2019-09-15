@@ -19,7 +19,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "User")
 public class UserEntity {
-
     @Id
     private String username;
 
@@ -29,7 +28,13 @@ public class UserEntity {
     private String phone;
 
     public User toUser() {
-        return new User();
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setPhone(phone);
+        user.setPassword(password);
+        user.setUsername(username);
+        return user;
     }
 
 }
